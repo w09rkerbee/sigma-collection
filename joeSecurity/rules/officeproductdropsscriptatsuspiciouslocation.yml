@@ -1,0 +1,45 @@
+title: Office product drops script at suspicious location
+status: experimental
+description: Office product drops script at suspicious location
+author: Joe Security
+date: 2020-01-30
+id: 200047
+threatname:
+behaviorgroup: 1
+classification: 7
+logsource:
+    service: sysmon
+    product: windows
+detection:
+    selection:
+        EventID: 11
+        Image: 
+            - '*\Microsoft Office*\Office*\WINWORD.EXE*'
+            - '*\Microsoft Office*\Office*\EXCEL.EXE*'
+        TargetFilename:
+            - '*\AppData\Roaming\\*.vbs*'
+            - '*\AppData\Roaming\\*.js*'
+            - '*\AppData\Roaming\\*.jse*'
+            - '*\AppData\Roaming\\*.bat*'
+            - '*\AppData\Roaming\\*.url*'
+            - '*\AppData\Roaming\\*.cmd*'
+            - '*\AppData\Roaming\\*.hta*'
+            - '*\AppData\Roaming\\*.ps1*'
+            - '*\AppData\Local\Temp\\*.vbs*'
+            - '*\AppData\Local\Temp\\*.js*'
+            - '*\AppData\Local\Temp\\*.jse*'
+            - '*\AppData\Local\Temp\\*.bat*'
+            - '*\AppData\Local\Temp\\*.url*'
+            - '*\AppData\Local\Temp\\*.cmd*'
+            - '*\AppData\Local\Temp\\*.hta*'
+            - '*\AppData\Local\Temp\\*.ps1*'
+    selection1:
+        EventID: 11
+        Image: 
+            - '*\Microsoft Office*\Office*\WINWORD.EXE*'
+            - '*\Microsoft Office*\Office*\EXCEL.EXE*'
+        TargetFilename:
+            - '*\AppData\Roaming\Microsoft\Office\Recent\\*.url*'
+        
+    condition: selection and not selection1
+level: critical

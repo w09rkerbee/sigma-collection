@@ -1,0 +1,21 @@
+title: Mshta Download Pastebin
+status: experimental
+description: mshta downloads payload from pastebin
+author: Joe Security
+date: 2019-10-24
+id: 200010
+threatname:
+behaviorgroup: 1
+classification: 8
+mitreattack:
+
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        CommandLine:
+            - '*\mshta.exe*pastebin.com\\*'
+            - '*mshta.exe*pastebin.com\raw*'
+    condition: selection
+level: critical
